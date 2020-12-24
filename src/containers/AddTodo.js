@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../store/actions'
+// import { addTodo } from '../store/action/actions'
+import { addTodoFB } from '../store/action/todoAction'
+import { useDispatch } from 'react-redux'
 
 let AddTodo = ({ dispatch }) => {
   let input
+  const dispatchFB = useDispatch()
 
   return (
     <div>
@@ -12,9 +15,10 @@ let AddTodo = ({ dispatch }) => {
         if (!input.value.trim()) {
           return
         }
-        dispatch(addTodo(input.value))
+        /* dispatch(addTodo(input.value)) */
+        dispatchFB(addTodoFB(input.value))
         input.value = ''
-      }}>
+      }}>{/* acceso directo al DOM */}
         <input ref={node => {
           input = node
         }} />
@@ -25,6 +29,7 @@ let AddTodo = ({ dispatch }) => {
     </div>
   )
 }
+
 AddTodo = connect()(AddTodo)
 
 export default AddTodo

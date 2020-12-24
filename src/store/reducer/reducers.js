@@ -1,5 +1,8 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, VisibilityFilters } from './actions'
+import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, VisibilityFilters } from '../action/actions'
+import { firebaseReducer } from 'react-redux-firebase'
+import { firestoreReducer } from 'redux-firestore'
+
 const { SHOW_ALL } = VisibilityFilters
 
 function visibilityFilter(state = SHOW_ALL, action) {
@@ -50,7 +53,10 @@ function todos(state = [], action) {
 
 const todoApp = combineReducers({
     visibilityFilter,
-    todos
+    todos,
+    firebase: firebaseReducer,
+    firestore: firestoreReducer
+
 })
 
 export default todoApp;
