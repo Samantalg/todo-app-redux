@@ -3,14 +3,12 @@ import { setVisibilityFilter } from '../store/action/actions'
 import Link from '../components/Link'
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('mapState', ownProps)
     return {
         active: ownProps.filter === state.visibilityFilter
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    console.log('mapDispatch', ownProps)
     return {
         onClick: () => {
             dispatch(setVisibilityFilter(ownProps.filter))

@@ -2,6 +2,8 @@ import { combineReducers } from 'redux'
 import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, VisibilityFilters } from '../action/actions'
 import { firebaseReducer } from 'react-redux-firebase'
 import { firestoreReducer } from 'redux-firestore'
+import 'firebase/auth'
+import 'firebase/firestore' // <- needed if using firestore
 
 const { SHOW_ALL } = VisibilityFilters
 
@@ -35,11 +37,8 @@ function todos(state = [], action) {
                 return todo
             })
         case TOGGLE_TODO:
-            console.log('reducer', action.id);
             return state.map((todo, index) => {
-                console.log(index);
                 if (index === action.id) {
-                    console.log(todo);
                     return Object.assign({}, todo, {
                         completed: !todo.completed
                     })
@@ -54,9 +53,9 @@ function todos(state = [], action) {
 const todoApp = combineReducers({
     visibilityFilter,
     todos,
+    firestore: firestoreReducer,
     firebase: firebaseReducer,
-    firestore: firestoreReducer
-
+    
 })
 
 export default todoApp;

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 let AddTodo = ({ dispatch }) => {
   let input
   const dispatchFB = useDispatch()
-
+let nextTodoId = 0;
   return (
     <div>
       <form onSubmit={e => {
@@ -16,7 +16,7 @@ let AddTodo = ({ dispatch }) => {
           return
         }
         /* dispatch(addTodo(input.value)) */
-        dispatchFB(addTodoFB(input.value))
+        dispatchFB(addTodoFB(input.value, nextTodoId++))
         input.value = ''
       }}>{/* acceso directo al DOM */}
         <input ref={node => {

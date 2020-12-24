@@ -1,12 +1,11 @@
-export const addTodoFB = (todo) => {
+export const addTodoFB = (text, id) => {
     return (disdispatch, getState, {getFirestore}) => {
         const firestore = getFirestore()
+        const completed = false
         firestore.collection('todo')
-        .add({
-            ...todo
-        })
+        .add({text, id, completed})
         .then(() => {
-            console.log('Todo añadida!')
+            console.log('Tarea añadida!')
         })
         .catch(err => {
             console.log(err)

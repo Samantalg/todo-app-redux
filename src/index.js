@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/firestore'
 import { createStore, applyMiddleware, compose } from 'redux'
 import todoApp from './store/reducer/reducers'
 import App from './App'
@@ -13,19 +14,14 @@ import fbConfig from './config/fbconfig'
 import thunk from 'redux-thunk'
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-/* const store = createStore(
-  todoApp,
-  compose(applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore }),
-  reduxFirestore(fbConfig))),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) */
-
-  const store = createStore(todoApp, composeEnhancer(applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
-      reduxFirestore(firebase, fbConfig)))
+const store = createStore(todoApp, composeEnhancer(applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
+  reduxFirestore(firebase, fbConfig)))
 
 const rrfProps = {
   firebase,
   config: fbConfig,
-  dispatch: store.dispatch
+  dispatch: store.dispatch,
+  createFirestoreInstance
 }
 
 render(
